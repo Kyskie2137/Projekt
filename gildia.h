@@ -35,5 +35,7 @@ const char* statusToString(StatusBohatera s);
 void wyczyscBufor();
 int pobierzInt();
 void pobierzTekst(char* bufor, int rozmiar);
+void zapiszDoPliku(Bohater* glowa, const char* nazwaPliku);
+void wczytajZPliku(Bohater** glowa, const char* nazwaPliku);
 
 #endif

@@ -93,3 +93,38 @@ void zwolnijPamiec(Bohater* glowa) {
         free(temp);
     }
 }
+
+void zapiszDoPliku(Bohater* glowa, const char* nazwaPliku) {
+    FILE* fp = fopen(nazwaPliku, "w");
+    if (!fp) { printf("Blad pliku!\n"); return; }
+    while (glowa) {
+        fprintf(fp, "%s|%s|%s|%d|%d|%d\n", 
+            glowa->imie, glowa->rasa, glowa->klasa, 
+            glowa->poziom, glowa->reputacja, (int)glowa->status);
+        glowa = glowa->nastepny;
+    }
+    fclose(fp);
+    printf("Zapisano.\n");
+}
+
+void wczytajZPliku(Bohater** glowa, const char* nazwaPliku) {
+    FILE* fp = fopen(nazwaPliku, "r");
+    if (!fp) return;
+    
+    zwolnijPamiec(*glowa);
+    *glowa = NULL;
+    char bufor[512];
+    
+    while (fgets(bufor, 512, fp)) {
+        Bohater* n = (Bohater*)malloc(sizeof(Bohater));
+        int st;
+        if (sscanf(bufor, "%[^|]|%[^|]|%[^|]|%d|%d|%d", 
+            n->imie, n->rasa, n->klasa, &n->poziom, &n->reputacja, &st) == 6) {
+            n->status = (StatusBohatera)st;
+            n->nastepny = *glowa;
+            *glowa = n;
+        } else free(n);
+    }
+    fclose(fp);
+    printf("Wczytano dane.\n");
+}
