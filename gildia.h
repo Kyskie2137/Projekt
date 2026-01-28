@@ -26,16 +26,20 @@ typedef struct Bohater {
     struct Bohater* nastepny;
 } Bohater;
 
-// Prototypy Krok 2
 void dodajBohatera(Bohater** glowa);
-void wyswietlWszystkich(Bohater* glowa);
+void edytujBohatera(Bohater* glowa);
 void usunBohatera(Bohater** glowa);
 void zwolnijPamiec(Bohater* glowa);
+
+void wyswietlWszystkich(Bohater* glowa);
+void wyszukajBohatera(Bohater* glowa);
+void sortujBohaterow(Bohater** glowa);
+
+void zapiszDoPliku(Bohater* glowa, const char* nazwaPliku);
+void wczytajZPliku(Bohater** glowa, const char* nazwaPliku);
+
 const char* statusToString(StatusBohatera s);
 void wyczyscBufor();
 int pobierzInt();
-void pobierzTekst(char* bufor, int rozmiar);
-void zapiszDoPliku(Bohater* glowa, const char* nazwaPliku);
-void wczytajZPliku(Bohater** glowa, const char* nazwaPliku);
 
 #endif
